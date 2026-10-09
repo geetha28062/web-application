@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Password Toggle</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #fdf2f8;
+        }
+
+        .app {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .card {
+            background: white;
+            width: 350px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px gray;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+        }
+
+        button {
+            margin: 15px;
+            padding: 10px 20px;
+            background: #db2777;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .status {
+            color: #db2777;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function PasswordToggle() {
+
+    const [password, setPassword] = React.useState("");
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    return (
+        <div className="card">
+
+            <h2>Password Toggle</h2>
+
+            <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <br />
+
+            <button
+                onClick={() => setShowPassword(!showPassword)}
+            >
+                {showPassword
+                    ? "Hide Password"
+                    : "Show Password"}
+            </button>
+
+            <p className="status">
+
+                {showPassword
+                    ? "Password is visible"
+                    : "Password is hidden"}
+
+            </p>
+
+        </div>
+    );
+}
+
+function App() {
+
+    return (
+        <div className="app">
+
+            <h1>React Password Application</h1>
+
+            <p>Show and hide password using React</p>
+
+            <PasswordToggle />
+
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

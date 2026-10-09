@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Counter</h2>
+
+<p id="count">0</p>
+<button onclick="increase()">Increase</button>
+<button onclick="decrease()">Decrease</button>
+
+<script>
+let n = 0;
+
+function increase() {
+    n++;
+    document.getElementById("count").innerHTML = n;
+}
+
+function decrease() {
+    n--;
+    document.getElementById("count").innerHTML = n;
+}
+</script>
+</body>
+</html>

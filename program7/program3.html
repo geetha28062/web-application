@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Registration</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #fef3c7;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #d97706;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #d97706;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function EmployeeRegistration() {
+
+    const [formData, setFormData] = React.useState({
+        name: "",
+        employeeId: "",
+        email: "",
+        phone: "",
+        role: ""
+    });
+
+    const [errors, setErrors] = React.useState({});
+    const [success, setSuccess] = React.useState("");
+
+    function handleChange(event) {
+
+        const { name, value } = event.target;
+
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+
+    function validate() {
+
+        const newErrors = {};
+
+        if (formData.name.trim() === "") {
+            newErrors.name = "Employee name is required";
+        }
+
+        if (formData.employeeId.trim() === "") {
+            newErrors.employeeId = "Employee ID is required";
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = "Invalid email";
+        }
+
+        if (!/^[0-9]{10}$/.test(formData.phone)) {
+            newErrors.phone = "Enter 10 digit phone number";
+        }
+
+        if (formData.role === "") {
+            newErrors.role = "Select a job role";
+        }
+
+        return newErrors;
+    }
+
+    function handleSubmit(event) {
+
+        event.preventDefault();
+
+        const validationErrors = validate();
+
+        setErrors(validationErrors);
+        setSuccess("");
+
+        if (Object.keys(validationErrors).length === 0) {
+
+            setSuccess("Employee registered successfully!");
+
+            setFormData({
+                name: "",
+                employeeId: "",
+                email: "",
+                phone: "",
+                role: ""
+            });
+        }
+    }
+
+    return (
+        <div className="container">
+
+            <h1>Employee Registration</h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <label>Employee Name</label>
+                <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter name"
+                />
+                {errors.name &&
+                    <div className="error">{errors.name}</div>
+                }
+
+                <label>Employee ID</label>
+                <input
+                    name="employeeId"
+                    value={formData.employeeId}
+                    onChange={handleChange}
+                    placeholder="Enter employee ID"
+                />
+                {errors.employeeId &&
+                    <div className="error">{errors.employeeId}</div>
+                }
+
+                <label>Email</label>
+                <input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Enter email"
+                />
+                {errors.email &&
+                    <div className="error">{errors.email}</div>
+                }
+
+                <label>Phone</label>
+                <input
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Enter 10 digit phone"
+                />
+                {errors.phone &&
+                    <div className="error">{errors.phone}</div>
+                }
+
+                <label>Job Role</label>
+                <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Role</option>
+                    <option>Developer</option>
+                    <option>Designer</option>
+                    <option>Manager</option>
+                    <option>Tester</option>
+                </select>
+
+                {errors.role &&
+                    <div className="error">{errors.role}</div>
+                }
+
+                <button type="submit">
+                    Register
+                </button>
+
+                {success &&
+                    <div className="success">{success}</div>
+                }
+
+            </form>
+
+        </div>
+    );
+}
+
+function App() {
+    return <EmployeeRegistration />;
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

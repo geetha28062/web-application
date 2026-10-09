@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Email Validation</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+function App() {
+  const [email, setEmail] = React.useState("");
+  const [msg, setMsg] = React.useState("");
+
+  function check(e) {
+    e.preventDefault();
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      setMsg("Valid Email");
+    else
+      setMsg("Invalid Email");
+  }
+
+  return (
+    <div>
+      <h2>Email Validation</h2>
+      <form onSubmit={check}>
+        <input type="text" placeholder="Enter Email"
+          onChange={e => setEmail(e.target.value)} />
+        <button>Validate</button>
+      </form>
+      <p>{msg}</p>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root"))
+.render(<App />);
+</script>
+</body>
+</html>

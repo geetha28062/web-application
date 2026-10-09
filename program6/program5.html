@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Application</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f3e8ff;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            width: 450px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px gray;
+        }
+
+        h1 {
+            color: #9333ea;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 6px;
+            background: #9333ea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .score {
+            font-size: 25px;
+            font-weight: bold;
+            color: #9333ea;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Quiz(props) {
+
+    const [score, setScore] = React.useState(0);
+    const [message, setMessage] = React.useState("");
+
+    function correctAnswer() {
+        setScore(score + 1);
+        setMessage("Correct Answer!");
+    }
+
+    function wrongAnswer() {
+        setMessage("Wrong Answer!");
+    }
+
+    function reset() {
+        setScore(0);
+        setMessage("");
+    }
+
+    return (
+        <div className="card">
+
+            <h2>{props.question}</h2>
+
+            <button onClick={correctAnswer}>
+                {props.correct}
+            </button>
+
+            <button onClick={wrongAnswer}>
+                {props.wrong}
+            </button>
+
+            <p>{message}</p>
+
+            <p className="score">
+                Score: {score}
+            </p>
+
+            <button onClick={reset}>
+                Reset Quiz
+            </button>
+
+        </div>
+    );
+}
+
+function App() {
+
+    return (
+        <div>
+
+            <h1>Simple Quiz</h1>
+
+            <Quiz
+                question="What is the capital of India?"
+                correct="New Delhi"
+                wrong="Mumbai"
+            />
+
+        </div>
+    );
+}
+
+ReactDOM.createRoot(
+    document.getElementById("root")
+).render(<App />);
+
+</script>
+
+</body>
+</html>

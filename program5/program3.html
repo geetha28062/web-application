@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Login Form</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #eef2ff;
+        }
+
+        .app {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .card {
+            background: white;
+            width: 350px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px gray;
+        }
+
+        input {
+            display: block;
+            width: 90%;
+            padding: 10px;
+            margin: 15px auto;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function LoginForm() {
+
+    const [username, setUsername] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [message, setMessage] = React.useState("");
+
+    function login() {
+
+        if (username === "admin" && password === "1234") {
+            setMessage("Login Successful!");
+        }
+        else {
+            setMessage("Invalid Username or Password");
+        }
+    }
+
+    return (
+        <div className="card">
+
+            <h2>Login Form</h2>
+
+            <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button onClick={login}>
+                Login
+            </button>
+
+            <p className="message">
+                {message}
+            </p>
+
+        </div>
+    );
+}
+
+function App() {
+
+    return (
+        <div className="app">
+
+            <h1>React Login Application</h1>
+
+            <p>Enter your login details</p>
+
+            <LoginForm />
+
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

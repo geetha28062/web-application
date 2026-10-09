@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Like Button</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #fff1f2;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px gray;
+        }
+
+        h1 {
+            color: #e11d48;
+        }
+
+        .likes {
+            font-size: 40px;
+            color: #e11d48;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #e11d48;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Post(props) {
+
+    const [likes, setLikes] = React.useState(0);
+
+    function likePost() {
+        setLikes(likes + 1);
+    }
+
+    function resetLikes() {
+        setLikes(0);
+    }
+
+    return (
+        <div className="card">
+
+            <h2>{props.title}</h2>
+
+            <p>{props.description}</p>
+
+            <hr />
+
+            <p className="likes">
+                ❤️ {likes}
+            </p>
+
+            <button onClick={likePost}>
+                Like
+            </button>
+
+            <br /><br />
+
+            <button onClick={resetLikes}>
+                Reset Likes
+            </button>
+
+        </div>
+    );
+}
+
+function App() {
+
+    return (
+        <div>
+
+            <h1>Social Media Post</h1>
+
+            <Post
+                title="React Learning"
+                description="React makes web development simple and powerful."
+            />
+
+        </div>
+    );
+}
+
+ReactDOM.createRoot(
+    document.getElementById("root")
+).render(<App />);
+
+</script>
+
+</body>
+</html>

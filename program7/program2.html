@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Registration</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #fce7f3;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #db2777;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #db2777;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function EventRegistration() {
+
+    const [formData, setFormData] = React.useState({
+        name: "",
+        email: "",
+        event: "",
+        date: "",
+        tickets: ""
+    });
+
+    const [errors, setErrors] = React.useState({});
+    const [success, setSuccess] = React.useState("");
+
+    function handleChange(event) {
+
+        const { name, value } = event.target;
+
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+
+    function validate() {
+
+        const newErrors = {};
+
+        if (formData.name.trim() === "") {
+            newErrors.name = "Name is required";
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+            newErrors.email = "Invalid email";
+        }
+
+        if (formData.event === "") {
+            newErrors.event = "Select an event";
+        }
+
+        if (formData.date === "") {
+            newErrors.date = "Select a date";
+        }
+
+        if (formData.tickets < 1) {
+            newErrors.tickets = "Enter at least 1 ticket";
+        }
+
+        return newErrors;
+    }
+
+    function handleSubmit(event) {
+
+        event.preventDefault();
+
+        const validationErrors = validate();
+
+        setErrors(validationErrors);
+        setSuccess("");
+
+        if (Object.keys(validationErrors).length === 0) {
+
+            setSuccess("Event registration successful!");
+
+            setFormData({
+                name: "",
+                email: "",
+                event: "",
+                date: "",
+                tickets: ""
+            });
+        }
+    }
+
+    return (
+        <div className="container">
+
+            <h1>Event Registration</h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <label>Name</label>
+                <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Enter name"
+                />
+                {errors.name &&
+                    <div className="error">{errors.name}</div>
+                }
+
+                <label>Email</label>
+                <input
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Enter email"
+                />
+                {errors.email &&
+                    <div className="error">{errors.email}</div>
+                }
+
+                <label>Event</label>
+                <select
+                    name="event"
+                    value={formData.event}
+                    onChange={handleChange}
+                >
+                    <option value="">Select Event</option>
+                    <option>Workshop</option>
+                    <option>Seminar</option>
+                    <option>Conference</option>
+                    <option>Hackathon</option>
+                </select>
+
+                {errors.event &&
+                    <div className="error">{errors.event}</div>
+                }
+
+                <label>Date</label>
+                <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                />
+
+                {errors.date &&
+                    <div className="error">{errors.date}</div>
+                }
+
+                <label>Number of Tickets</label>
+                <input
+                    type="number"
+                    name="tickets"
+                    value={formData.tickets}
+                    onChange={handleChange}
+                    placeholder="Enter tickets"
+                />
+
+                {errors.tickets &&
+                    <div className="error">{errors.tickets}</div>
+                }
+
+                <button type="submit">
+                    Register
+                </button>
+
+                {success &&
+                    <div className="success">{success}</div>
+                }
+
+            </form>
+
+        </div>
+    );
+}
+
+function App() {
+    return <EventRegistration />;
+}
+
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+
+root.render(<App />);
+
+</script>
+
+</body>
+</html>

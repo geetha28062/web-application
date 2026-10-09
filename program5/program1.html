@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React Functional Component</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f0f4f8;
+        }
+
+        .app {
+            width: 300px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px #ccc;
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        .counter {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Counter() {
+            const [count, setCount] = React.useState(0);
+
+            return (
+                <div className="app">
+                    <h1>React Functional Component</h1>
+                    <p>Simple using JSX and state</p>
+
+                    <h3>Counter Application</h3>
+
+                    <div className="counter">{count}</div>
+
+                    <button onClick={() => setCount(count + 1)}>
+                        Increment
+                    </button>
+
+                    <button onClick={() => setCount(count - 1)}>
+                        Decrement
+                    </button>
+
+                    <button onClick={() => setCount(0)}>
+                        Reset
+                    </button>
+                </div>
+            );
+        }
+
+        function App() {
+            return <Counter />;
+        }
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        root.render(<App />);
+
+    </script>
+
+</body>
+</html>

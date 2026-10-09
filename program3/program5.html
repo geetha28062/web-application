@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Registration</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #fff4e6;
+        }
+
+        form {
+            width: 400px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: white;
+            border: 2px solid #ff6600;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff6600;
+        }
+
+        input, select {
+            width: 95%;
+            padding: 9px;
+            margin: 8px 0;
+        }
+
+        button {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+        }
+    </style>
+
+    <script>
+        function employeeValidation() {
+            let name = document.getElementById("name").value;
+            let salary = document.getElementById("salary").value;
+            let department = document.getElementById("department").value;
+
+            if (name == "") {
+                alert("Enter employee name");
+                return false;
+            }
+
+            if (salary == "" || salary <= 0) {
+                alert("Enter a valid salary");
+                return false;
+            }
+
+            if (department == "") {
+                alert("Select a department");
+                return false;
+            }
+
+            alert("Employee registered successfully!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return employeeValidation()">
+
+    <h2>Employee Registration</h2>
+
+    <input type="text" id="name"
+           placeholder="Employee Name">
+
+    <input type="number" id="salary"
+           placeholder="Salary">
+
+    <select id="department">
+        <option value="">Select Department</option>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+    </select>
+
+    <button type="submit">Register</button>
+
+</form>
+
+</body>
+</html>
